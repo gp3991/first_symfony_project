@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Template test - {{ var }}{% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('stylesheets/style.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>TEMPLATE TEST</h1>
+    <p>Provided value: <b>{{ var }}</b></p>
+    <p>{{ dump() }}</p>
+
+
+    <table id="users-table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>login</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <p><a href="{{ path('test_json_response') }}" target="_blank">JSON TEST</a></p>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+
+    <script>
+        $.ajax({
+
+            url : '{{ path('test_json_response') }}',
+            type : 'GET',
+            dataType:'json',
+            success : function(data) {
+                $.each(data, function(key, value){
+                    $('#users-table tbody').append("<tr><td>"+value["id"]+"</td><td>"+value["login"]+"</td></tr>");
+                    console.log(value);
+                })
+            },
+            error : function(request,error)
+            {
+                alert("Request: "+JSON.stringify(request));
+            }
+        });
+    </script>
+
+{% endblock %}

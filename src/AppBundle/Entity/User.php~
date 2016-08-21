@@ -39,14 +39,4 @@ class User {
         $this->login = $login;
     }
 
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }
